@@ -100,6 +100,16 @@ def warmup_steps(n_rows: int, config: TrainConfig) -> int:
     return math.ceil(config.warmup_fraction * total_steps(n_rows, config))
 
 
+def length_grouping_kwargs(accepted: set[str]) -> dict[str, object]:
+    """Length-grouped batching across transformers versions: v4 has group_by_length=True,
+    v5 has train_sampling_strategy="group_by_length". Raises if neither exists."""
+    if "group_by_length" in accepted:
+        return {"group_by_length": True}
+    if "train_sampling_strategy" in accepted:
+        return {"train_sampling_strategy": "group_by_length"}
+    raise RuntimeError("this transformers version has no length-grouped sampling option")
+
+
 def load_for_training(config: TrainConfig) -> tuple[Any, Any]:
     """fp16 base model with LoRA adapters (fp32) attached. No 4-bit quantization (SPEC 6)."""
     if config.backend == "unsloth":
@@ -163,6 +173,8 @@ def train(
 ) -> dict[str, object]:
     """Train, resuming from the newest checkpoint in out_dir if one exists. Saves the adapter
     to out_dir/adapter and returns run statistics."""
+    import inspect
+
     import torch
     from transformers import DataCollatorForSeq2Seq, Trainer, TrainingArguments, set_seed
 
@@ -188,10 +200,10 @@ def train(
         save_strategy="steps",
         save_steps=save_steps,
         save_total_limit=2,
-        group_by_length=True,
         remove_unused_columns=False,
         report_to="none",
         dataloader_num_workers=2,
+        **length_grouping_kwargs(set(inspect.signature(TrainingArguments.__init__).parameters)),
     )
     collator = DataCollatorForSeq2Seq(
         tokenizer, padding=True, label_pad_token_id=IGNORE_INDEX, pad_to_multiple_of=8

@@ -5,6 +5,7 @@ from spider_sql.training import (
     IGNORE_INDEX,
     TrainConfig,
     encode_examples,
+    length_grouping_kwargs,
     mask_labels,
     run_name,
     split_prompt_completion,
@@ -73,3 +74,12 @@ def test_steps_and_run_name() -> None:
     assert total_steps(8106, config) == 507 * 3
     assert warmup_steps(8106, config) == 46
     assert run_name("qwen05b", config) == "qwen05b_c3_lr0.0001_ep3_seed2"
+
+
+def test_length_grouping_across_transformers_versions() -> None:
+    assert length_grouping_kwargs({"group_by_length", "seed"}) == {"group_by_length": True}
+    assert length_grouping_kwargs({"train_sampling_strategy"}) == {
+        "train_sampling_strategy": "group_by_length"
+    }
+    with pytest.raises(RuntimeError):
+        length_grouping_kwargs({"seed"})
