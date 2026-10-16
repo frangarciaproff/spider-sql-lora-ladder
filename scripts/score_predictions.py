@@ -1,7 +1,7 @@
 """Score a predictions file with the metrics of its split (SPEC 7.1).
 
-Needs SPIDER_DIR and TESTSUITE_DIR. Reads <pred-dir>/<split>.jsonl and meta.json, writes
-<out-dir>/<split>.summary.json, <split>.jsonl and a copy of meta.json.
+Needs SPIDER_DIR and TESTSUITE_DIR. Reads <pred-dir>/<split>.jsonl and <split>.meta.json, writes
+<out-dir>/<split>.summary.json, <split>.jsonl and a copy of the meta file.
 """
 
 from __future__ import annotations
@@ -37,9 +37,11 @@ def main(argv: Sequence[str] | None = None) -> int:
         assert isinstance(summary, dict)
         summary["partial"] = True
     write_scores(result, args.out_dir, args.split)
-    meta = args.pred_dir / "meta.json"
-    if meta.is_file():
-        shutil.copyfile(meta, args.out_dir / "meta.json")
+    for name in (f"{args.split}.meta.json", "meta.json"):  # meta.json: runs before 2026-10-16
+        meta = args.pred_dir / name
+        if meta.is_file():
+            shutil.copyfile(meta, args.out_dir / name)
+            break
     summary = result["summary"]
     assert isinstance(summary, dict)
     for name, value in summary.items():

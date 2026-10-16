@@ -87,8 +87,8 @@ Unit tests on synthetic data run in CI. Real-data checks run with `scripts/prepa
 
 - LoRA r = 16, alpha = 32, dropout 0, all linear projection modules.
 - Optimizer AdamW, lr 2e-4, cosine schedule, warmup 3%, effective batch size 16, max length 2048, fp16.
-- Tuning budget, on validation only, with seed 0 only, on S only: lr in {1e-4, 2e-4} x epochs in {2, 3} (4 runs maximum). The winning config is used for S and M. No further tuning. Any change to this plan is a logged deviation.
-- Library: Unsloth + TRL SFTTrainer. The Unsloth speedup is measured by us (wall clock per epoch), not assumed.
+- Tuning budget, on validation only, with seed 0 only, on S only: lr in {1e-4, 2e-4} x epochs in {2, 3} (4 runs maximum). The winning config is used for S and M. No further tuning. Any change to this plan is a logged deviation. Selection rule: highest validation EX of the final checkpoint; ties go to fewer epochs, then the lower learning rate. No intermediate-checkpoint selection.
+- Library: Hugging Face `Trainer` with explicit completion-only labels (prompt tokens masked with -100; prompt and completion tokenized separately, exactly as at inference), on an Unsloth fp16 model with LoRA; plain PEFT is the fallback backend if Unsloth fails on Colab, and the backend used is recorded per run. Effective batch 16 (0.5B: 8 x 2 accumulation; 1.5B: 4 x 4). Warmup is 3% of optimizer steps, computed explicitly. group_by_length on. The Unsloth speedup is measured by us (wall clock per epoch), not assumed.
 - Adapter and checkpoints are saved to Drive; sessions may die and runs are rerun, not skipped.
 - Every run logs: git commit, package versions, model revision, data checksum, seed, config, GPU, wall clock, peak VRAM.
 

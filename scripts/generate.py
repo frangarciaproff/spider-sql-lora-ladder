@@ -1,6 +1,6 @@
 """Generate SQL for one split with one condition (C1 zero-shot, C2 three-shot, C3 adapter).
 
-Needs SPIDER_DIR. Writes <out-dir>/<split>.jsonl (resumable) and <out-dir>/meta.json.
+Needs SPIDER_DIR. Writes <out-dir>/<split>.jsonl (resumable) and <out-dir>/<split>.meta.json.
 The test split needs --final: SPEC 3.2 allows one test run per condition, after freezing.
 """
 
@@ -83,7 +83,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     tokenizer, model = load_hf(args.model, args.revision, args.adapter, args.dtype)
     backend = hf_backend(tokenizer, model, args.max_new_tokens)
     args.out_dir.mkdir(parents=True, exist_ok=True)
-    meta_path = args.out_dir / "meta.json"
+    meta_path = args.out_dir / f"{args.split}.meta.json"
     meta = {
         "split": args.split,
         "condition": args.condition,
@@ -98,12 +98,12 @@ def main(argv: Sequence[str] | None = None) -> int:
         "started_utc": datetime.now(UTC).isoformat(),
         "environment": environment_info(model, args.model, args.revision),
     }
-    meta_path.write_text(json.dumps(meta, indent=2, default=str), encoding="utf-8")
+    meta_path.write_text(json.dumps(meta, indent=2, default=str) + "\n", encoding="utf-8")
 
     stats = generate_all(records, backend, args.out_dir / f"{args.split}.jsonl", args.batch_size)
     meta["finished_utc"] = datetime.now(UTC).isoformat()
     meta["last_session_stats"] = stats
-    meta_path.write_text(json.dumps(meta, indent=2, default=str), encoding="utf-8")
+    meta_path.write_text(json.dumps(meta, indent=2, default=str) + "\n", encoding="utf-8")
     seconds = stats["seconds"] or 1.0
     print(
         f"done: {int(stats['n_generated'])} prompts in {seconds:.0f}s, "

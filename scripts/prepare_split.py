@@ -35,17 +35,18 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     args.out_dir.mkdir(parents=True, exist_ok=True)
     (args.out_dir / "split_manifest.json").write_text(
-        json.dumps(manifest(split), indent=2), encoding="utf-8"
+        json.dumps(manifest(split), indent=2) + "\n", encoding="utf-8"
     )
     (args.out_dir / "leakage_report.json").write_text(
-        json.dumps(report, indent=2), encoding="utf-8"
+        json.dumps(report, indent=2) + "\n", encoding="utf-8"
     )
 
     (args.out_dir / "decontamination.json").write_text(
         json.dumps(
             [{"source": e.source, "index": e.index, "db_id": e.db_id} for e in split.removed],
             indent=2,
-        ),
+        )
+        + "\n",
         encoding="utf-8",
     )
 
