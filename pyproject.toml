@@ -46,6 +46,10 @@ extend-exclude = ["data", "src/spider_sql/_vendor"]
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "SIM"]
 
+[tool.ruff.lint.per-file-ignores]
+# shell lines are long, and loop variables used only inside ! commands look unused
+"notebooks/*" = ["E501", "B007"]
+
 [tool.mypy]
 python_version = "3.13"
 strict = true
@@ -53,7 +57,7 @@ files = ["src", "scripts"]
 exclude = ["data/"]
 
 [[tool.mypy.overrides]]
-module = ["nltk.*", "sqlparse.*"]
+module = ["nltk.*", "sqlparse.*", "torch.*", "transformers.*", "peft.*", "huggingface_hub.*"]
 ignore_missing_imports = true
 
 [[tool.mypy.overrides]]

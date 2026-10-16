@@ -46,3 +46,33 @@ def test_training_messages_end_with_gold() -> None:
 )
 def test_extract_sql(text: str, expected: str) -> None:
     assert extract_sql(text) == expected
+
+
+def _fit() -> list:
+    from spider_sql.data import Example
+
+    rows = []
+    for db in ["a", "b", "c", "d", "big"]:
+        for i in range(4):
+            rows.append(Example("train_spider", len(rows), db, f"q {db} {i}", f"SELECT {i}"))
+    return rows
+
+
+def test_select_shots_distinct_dbs_deterministic_and_size_limited() -> None:
+    from spider_sql.prompt import select_shots
+
+    def schema_of(e) -> str:
+        return "x" * (5000 if e.db_id == "big" else 100)
+
+    shots = select_shots(_fit(), schema_of)
+    assert len(shots) == 3
+    assert len({s.db_id for s in shots}) == 3
+    assert "big" not in {s.db_id for s in shots}
+    assert shots == select_shots(list(reversed(_fit())), schema_of)
+
+
+def test_select_shots_raises_when_not_enough() -> None:
+    from spider_sql.prompt import select_shots
+
+    with pytest.raises(ValueError):
+        select_shots(_fit(), lambda e: "x" * 5000)

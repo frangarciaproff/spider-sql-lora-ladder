@@ -88,3 +88,15 @@ def test_write_scores_files(paths: DataPaths, tmp_path: Path) -> None:
     assert json.loads(summary_path.read_text())["ex"]["n_correct"] == 1
     rows = [json.loads(line) for line in rows_path.read_text().splitlines()]
     assert [r["ex"] for r in rows] == [1, 0]
+
+
+def test_align_predictions_requires_all_unless_partial() -> None:
+    from spider_sql.evaluate import align_predictions
+
+    examples = [Example("dev", i, "d", "q", "SELECT 1") for i in range(3)]
+    rows = [{"key": "dev:2", "pred": "B"}, {"key": "dev:0", "pred": "A"}]
+    with pytest.raises(ValueError):
+        align_predictions(examples, rows)
+    kept, preds = align_predictions(examples, rows, partial=True)
+    assert [e.index for e in kept] == [0, 2]
+    assert preds == ["A", "B"]

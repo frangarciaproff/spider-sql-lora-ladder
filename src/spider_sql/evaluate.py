@@ -97,3 +97,26 @@ def write_scores(result: dict[str, object], out_dir: Path, split: str) -> tuple[
     lines = [json.dumps(row, separators=(",", ":"), ensure_ascii=False) for row in rows]
     rows_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return summary_path, rows_path
+
+
+def align_predictions(
+    examples: Sequence[Example],
+    rows: Sequence[dict[str, object]],
+    partial: bool = False,
+) -> tuple[list[Example], list[str]]:
+    """Match prediction rows to examples by key "<source>:<index>". Missing predictions are an
+    error unless partial (smoke runs only; partial scores are never reported)."""
+    by_key = {str(r["key"]): str(r["pred"]) for r in rows}
+    kept: list[Example] = []
+    preds: list[str] = []
+    missing = 0
+    for example in examples:
+        pred = by_key.get(f"{example.source}:{example.index}")
+        if pred is None:
+            missing += 1
+            continue
+        kept.append(example)
+        preds.append(pred)
+    if missing and not partial:
+        raise ValueError(f"{missing} of {len(examples)} examples have no prediction")
+    return kept, preds

@@ -5,11 +5,14 @@ The same template and the same extraction are used for every condition (C1, C2, 
 
 from __future__ import annotations
 
+import hashlib
 import re
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 
 import sqlparse
+
+from spider_sql.data import Example
 
 SYSTEM_PROMPT = (
     "You translate questions into SQLite queries. Given a database schema and a question, "
@@ -59,3 +62,33 @@ def extract_sql(text: str) -> str:
     if not statements:
         return ""
     return statements[0].rstrip(";").strip()
+
+
+SHOT_SEED = 1234
+N_SHOTS = 3
+MAX_SHOT_SCHEMA_CHARS = 2000
+
+
+def select_shots(
+    fit: Sequence[Example],
+    schema_of: Callable[[Example], str],
+    k: int = N_SHOTS,
+    seed: int = SHOT_SEED,
+    max_schema_chars: int = MAX_SHOT_SCHEMA_CHARS,
+) -> list[Example]:
+    """Fixed few-shot examples: rank fit examples by sha256(seed:source:index), keep the first
+    k from distinct databases whose schema text is at most max_schema_chars long."""
+
+    def rank(e: Example) -> str:
+        return hashlib.sha256(f"{seed}:{e.source}:{e.index}".encode()).hexdigest()
+
+    chosen: list[Example] = []
+    used: set[str] = set()
+    for example in sorted(fit, key=rank):
+        if example.db_id in used or len(schema_of(example)) > max_schema_chars:
+            continue
+        chosen.append(example)
+        used.add(example.db_id)
+        if len(chosen) == k:
+            return chosen
+    raise ValueError(f"only {len(chosen)} eligible shots found")

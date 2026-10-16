@@ -12,22 +12,15 @@ from collections.abc import Callable, Sequence
 from pathlib import Path
 
 from spider_sql.baselines import first_table, overlap_count
-from spider_sql.data import DataPaths, Example, load_examples, load_train, sqlite_path
+from spider_sql.data import DataPaths, Example, sqlite_path
 from spider_sql.evaluate import score_split, write_scores
 from spider_sql.schema import table_names
-from spider_sql.split import make_split
+from spider_sql.split import load_all_splits
 
 BASELINES: dict[str, Callable[[Example, list[str]], str]] = {
     "b0a_first_table": lambda ex, tables: first_table(tables),
     "b0b_overlap_count": lambda ex, tables: overlap_count(ex.question, tables),
 }
-
-
-def load_splits(paths: DataPaths) -> dict[str, list[Example]]:
-    dev = load_examples(paths.spider, "dev")
-    test = load_examples(paths.spider, "test")
-    split = make_split(load_train(paths.spider), holdouts={"dev": dev, "test": test})
-    return {"validation": list(split.validation), "dev": dev, "test": test}
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -38,7 +31,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     paths = DataPaths.from_env()
-    splits = load_splits(paths)
+    splits = load_all_splits(paths.spider)
     for split_name in args.splits:
         examples = splits[split_name][: args.limit]
         for name, make_pred in BASELINES.items():

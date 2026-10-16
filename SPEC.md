@@ -68,7 +68,7 @@ Unit tests on synthetic data run in CI. Real-data checks run with `scripts/prepa
 | B0a | Trivial: `SELECT * FROM <first table in schema>` | n/a |
 | B0b | Trivial: `SELECT count(*) FROM <table with highest token overlap with the question>`; tokens are lowercase alphanumerics, `_` splits words, a trailing `s` is dropped on words longer than 3 characters, ties go to the earlier table (`src/spider_sql/baselines.py`) | n/a |
 | C1 | Zero-shot instruct model | n/a (greedy, deterministic) |
-| C2 | 3-shot instruct model, 3 fixed examples from train (fit), chosen by seed 1234, same for all questions | n/a |
+| C2 | 3-shot instruct model, 3 fixed examples from train (fit), same for all questions: fit examples ranked by sha256("1234:source:index"), first 3 from distinct databases with schema text at most 2,000 characters (`select_shots`). Selected: train_spider 6209 (roller_coaster), 1080 (match_season), 5609 (swimming) | n/a |
 | C3 | LoRA fine-tuned | 3 training seeds: 0, 1, 2 |
 
 - A model that does not beat the better of B0a/B0b is not a result.
@@ -78,10 +78,10 @@ Unit tests on synthetic data run in CI. Real-data checks run with `scripts/prepa
 
 - Prompt: model chat template; system message fixed; user message = schema as `CREATE TABLE` statements taken from the SQLite files (`sqlite_master`, tables only, creation order), then the question. No sample rows (sample-row ablation is deferred, see non-goals). Exact text: `src/spider_sql/prompt.py`.
 - Target: the gold SQL only. Loss on completion tokens only.
-- Decoding: greedy, `max_new_tokens` 256, no sampling, identical across all conditions.
+- Decoding: greedy (`do_sample` False, `num_beams` 1, `repetition_penalty` 1.0), `max_new_tokens` 256, identical across all conditions. This overrides the model's own generation defaults (sampling, repetition penalty); those defaults are recorded in each run's meta.json. Hugging Face `generate`, fp16, left padding, batches sorted by prompt length.
 - Post-processing: take the first fenced code block if present, otherwise the whole output; keep the first SQL statement (`sqlparse.split`), strip the trailing semicolon. Same function (`extract_sql`) for every condition.
 - Execution timeout per query is fixed once (default 30 s) and recorded.
-- Training examples exceeding `max_seq_length` are dropped and counted. Evaluation prompts are never truncated; over-length eval prompts count as incorrect and are reported.
+- Training examples exceeding `max_seq_length` are dropped and counted. Evaluation prompts are never truncated; `max_seq_length` applies to training only, and the only limit at inference is the model's context window. The longest prompt of each run is recorded in meta.json.
 
 ## 6. Training configuration (frozen starting point)
 

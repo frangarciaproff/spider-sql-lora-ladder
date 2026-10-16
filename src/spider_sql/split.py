@@ -5,8 +5,9 @@ from __future__ import annotations
 import hashlib
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
+from pathlib import Path
 
-from spider_sql.data import Example
+from spider_sql.data import Example, load_examples, load_train
 from spider_sql.leakage import remove_pair_overlaps
 
 SPLIT_SEED = 1234
@@ -76,4 +77,17 @@ def manifest(
         "n_removed_pair_overlap": len(split.removed),
         "n_fit_dbs": len({e.db_id for e in split.fit}),
         "n_validation_dbs": len(split.validation_db_ids),
+    }
+
+
+def load_all_splits(spider_dir: Path) -> dict[str, list[Example]]:
+    """fit (decontaminated), validation, dev and test, built exactly as prepare_split.py does."""
+    dev = load_examples(spider_dir, "dev")
+    test = load_examples(spider_dir, "test")
+    split = make_split(load_train(spider_dir), holdouts={"dev": dev, "test": test})
+    return {
+        "fit": list(split.fit),
+        "validation": list(split.validation),
+        "dev": dev,
+        "test": test,
     }
