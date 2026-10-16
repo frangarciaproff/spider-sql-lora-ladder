@@ -1,0 +1,38 @@
+{
+  "shared_db_ids": {},
+  "text_overlaps": {
+    "dev": {
+      "n_examples": 1034,
+      "n_question_overlap": 3,
+      "n_question_sql_overlap": 0,
+      "question_samples": [
+        "How many flights do we have?",
+        "How many employees are there?",
+        "How many players are from each country?"
+      ],
+      "question_sql_samples": []
+    },
+    "test": {
+      "n_examples": 2147,
+      "n_question_overlap": 9,
+      "n_question_sql_overlap": 0,
+      "question_samples": [
+        "What is the most popular payment method?",
+        "How many different payment methods are there?",
+        "How many authors are there?",
+        "Count the number of authors.",
+        "How many customers are there?"
+      ],
+      "question_sql_samples": []
+    },
+    "validation": {
+      "n_examples": 528,
+      "n_question_overlap": 1,
+      "n_question_sql_overlap": 0,
+      "question_samples": [
+        "Find the number of students in total."
+      ],
+      "question_sql_samples": []
+    }
+  }
+}

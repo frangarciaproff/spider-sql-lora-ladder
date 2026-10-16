@@ -1,0 +1,17 @@
+# data and secrets are never committed
+data/
+.env
+__pycache__/
+.venv/
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+*.sqlite
+*.zip
+.DS_Store
+__MACOSX/
+!results/.gitkeep
+COMMANDS_CHEATSHEET.md
+COMMANDS_CHEATSHEET.md
+personal_comments.md
+dist/

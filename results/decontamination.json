@@ -1,0 +1,127 @@
+[
+  {
+    "source": "train_spider",
+    "index": 213,
+    "db_id": "book_2"
+  },
+  {
+    "source": "train_spider",
+    "index": 500,
+    "db_id": "allergy_1"
+  },
+  {
+    "source": "train_spider",
+    "index": 691,
+    "db_id": "customers_card_transactions"
+  },
+  {
+    "source": "train_spider",
+    "index": 692,
+    "db_id": "customers_card_transactions"
+  },
+  {
+    "source": "train_spider",
+    "index": 761,
+    "db_id": "race_track"
+  },
+  {
+    "source": "train_spider",
+    "index": 762,
+    "db_id": "race_track"
+  },
+  {
+    "source": "train_spider",
+    "index": 917,
+    "db_id": "insurance_fnol"
+  },
+  {
+    "source": "train_spider",
+    "index": 1574,
+    "db_id": "customers_and_invoices"
+  },
+  {
+    "source": "train_spider",
+    "index": 1603,
+    "db_id": "customers_and_invoices"
+  },
+  {
+    "source": "train_spider",
+    "index": 1604,
+    "db_id": "customers_and_invoices"
+  },
+  {
+    "source": "train_spider",
+    "index": 1613,
+    "db_id": "customers_and_invoices"
+  },
+  {
+    "source": "train_spider",
+    "index": 1910,
+    "db_id": "protein_institute"
+  },
+  {
+    "source": "train_spider",
+    "index": 3337,
+    "db_id": "sports_competition"
+  },
+  {
+    "source": "train_spider",
+    "index": 4250,
+    "db_id": "club_1"
+  },
+  {
+    "source": "train_spider",
+    "index": 4484,
+    "db_id": "decoration_competition"
+  },
+  {
+    "source": "train_spider",
+    "index": 4720,
+    "db_id": "department_store"
+  },
+  {
+    "source": "train_spider",
+    "index": 5096,
+    "db_id": "cre_Drama_Workshop_Groups"
+  },
+  {
+    "source": "train_spider",
+    "index": 5517,
+    "db_id": "products_gen_characteristics"
+  },
+  {
+    "source": "train_spider",
+    "index": 5769,
+    "db_id": "customer_complaints"
+  },
+  {
+    "source": "train_spider",
+    "index": 6326,
+    "db_id": "e_government"
+  },
+  {
+    "source": "train_spider",
+    "index": 6327,
+    "db_id": "e_government"
+  },
+  {
+    "source": "train_spider",
+    "index": 6348,
+    "db_id": "school_bus"
+  },
+  {
+    "source": "train_spider",
+    "index": 6399,
+    "db_id": "cre_Docs_and_Epenses"
+  },
+  {
+    "source": "train_spider",
+    "index": 6400,
+    "db_id": "cre_Docs_and_Epenses"
+  },
+  {
+    "source": "train_spider",
+    "index": 6808,
+    "db_id": "flight_4"
+  }
+]

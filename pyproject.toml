@@ -1,0 +1,66 @@
+[project]
+name = "spider-sql-lora-ladder"
+version = "0.1.0"
+description = "LoRA fine-tuning ladder (Qwen2.5-Coder 0.5B and 1.5B) for text-to-SQL on Spider, with pre-registered evaluation."
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Francisco García Soriano" }]
+dependencies = [
+    "numpy",
+    "sqlparse",
+    "nltk",
+]
+
+[project.optional-dependencies]
+# Colab only; installed there, not in CI. Versions are logged per run.
+train = [
+    "transformers>=4.37.0",
+    "datasets",
+    "peft",
+    "trl",
+    "unsloth",
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "ruff",
+    "mypy",
+    "pre-commit",
+    "tqdm",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/spider_sql"]
+
+[tool.ruff]
+line-length = 100
+force-exclude = true
+src = ["src", "tests", "scripts"]
+extend-exclude = ["data", "src/spider_sql/_vendor"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+files = ["src", "scripts"]
+exclude = ["data/"]
+
+[[tool.mypy.overrides]]
+module = ["nltk.*", "sqlparse.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["spider_sql._vendor.*"]
+ignore_errors = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+markers = ["data: needs the real Spider files (SPIDER_DIR and TESTSUITE_DIR set)"]

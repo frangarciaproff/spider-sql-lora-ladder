@@ -1,0 +1,26 @@
+{
+  "seed": 1234,
+  "fraction": 0.1,
+  "validation_db_ids": [
+    "aircraft",
+    "company_office",
+    "customers_campaigns_ecommerce",
+    "department_management",
+    "flight_company",
+    "hospital_1",
+    "insurance_and_eClaims",
+    "journal_committee",
+    "local_govt_in_alabama",
+    "phone_market",
+    "pilot_record",
+    "products_for_hire",
+    "riding_club",
+    "sakila_1",
+    "voter_2"
+  ],
+  "n_fit": 8106,
+  "n_validation": 528,
+  "n_removed_pair_overlap": 25,
+  "n_fit_dbs": 131,
+  "n_validation_dbs": 15
+}
