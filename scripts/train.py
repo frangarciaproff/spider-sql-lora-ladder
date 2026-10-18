@@ -16,7 +16,7 @@ from spider_sql.data import DataPaths, Example, sqlite_path
 from spider_sql.prompt import Message
 from spider_sql.schema import schema_ddl
 from spider_sql.split import load_all_splits
-from spider_sql.training import TrainConfig, encode_examples, total_steps
+from spider_sql.training import TrainConfig, encode_examples, merge_train_meta, total_steps
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -75,19 +75,21 @@ def main(argv: Sequence[str] | None = None) -> int:
         f"{total_steps(len(rows), config)} optimizer steps"
     )
     stats = train(config, rows, tokenizer, model, args.out_dir, args.save_steps, args.max_steps)
-    meta = {
-        "finished_utc": datetime.now(UTC).isoformat(),
+    meta_path = args.out_dir / "train_meta.json"
+    existing = json.loads(meta_path.read_text(encoding="utf-8")) if meta_path.is_file() else None
+    static = {
         "n_rows": len(rows),
         "dropped_keys": dropped,
         "token_length_median": lengths[len(lengths) // 2],
         "token_length_max": lengths[-1],
         "limit": args.limit,
         "max_steps": args.max_steps,
-        **stats,
+        "config": stats["config"],
     }
-    (args.out_dir / "train_meta.json").write_text(
-        json.dumps(meta, indent=2) + "\n", encoding="utf-8"
-    )
+    session = {k: v for k, v in stats.items() if k != "config"}
+    session["finished_utc"] = datetime.now(UTC).isoformat()
+    meta = merge_train_meta(existing, static, session)
+    meta_path.write_text(json.dumps(meta, indent=2) + "\n", encoding="utf-8")
     print(
         f"done: step {stats['global_step']}, loss {stats['train_loss']:.4f}, "
         f"{stats['seconds_this_session']:.0f}s, peak VRAM {stats['peak_vram_gb']:.1f} GB"

@@ -7,6 +7,7 @@ from spider_sql.training import (
     encode_examples,
     length_grouping_kwargs,
     mask_labels,
+    merge_train_meta,
     run_name,
     split_prompt_completion,
     total_steps,
@@ -83,3 +84,16 @@ def test_length_grouping_across_transformers_versions() -> None:
     }
     with pytest.raises(RuntimeError):
         length_grouping_kwargs({"seed"})
+
+
+def test_resumed_session_is_appended_not_overwritten() -> None:
+    first = merge_train_meta(
+        None, {"n_rows": 10}, {"seconds_this_session": 900.0, "peak_vram_gb": 2.3}
+    )
+    second = merge_train_meta(
+        first, {"n_rows": 10}, {"seconds_this_session": 1.0, "peak_vram_gb": 1.1}
+    )
+    assert len(second["sessions"]) == 2
+    assert second["sessions"][0]["seconds_this_session"] == 900.0
+    assert second["total_train_seconds"] == 901.0
+    assert second["max_peak_vram_gb"] == 2.3

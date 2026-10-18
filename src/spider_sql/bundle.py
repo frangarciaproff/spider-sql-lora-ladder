@@ -111,3 +111,23 @@ def install_bundle(zip_path: Path, dest: Path, expected_sha256: str) -> tuple[Pa
     local.unlink()
     marker.write_text(digest, encoding="utf-8")
     return spider, testsuite
+
+
+def verify_extracted(root: Path) -> tuple[Path, Path]:
+    """For platforms that unpack the zip on upload (Kaggle Datasets): check that every file in
+    MANIFEST.json exists with the recorded size. Weaker than the zip sha256, but it catches
+    missing or truncated files. Returns (spider_dir, testsuite_dir)."""
+    manifest_path = root / "MANIFEST.json"
+    if not manifest_path.is_file():
+        raise FileNotFoundError(f"no MANIFEST.json in {root}")
+    entries = json.loads(manifest_path.read_text(encoding="utf-8"))["files"]
+    problems = []
+    for entry in entries:
+        path = root / entry["path"]
+        if not path.is_file():
+            problems.append(f"missing {entry['path']}")
+        elif path.stat().st_size != entry["bytes"]:
+            problems.append(f"size mismatch {entry['path']}")
+    if problems:
+        raise ValueError(f"{len(problems)} problems, first: {problems[:3]}")
+    return root / "spider", root / "testsuite"

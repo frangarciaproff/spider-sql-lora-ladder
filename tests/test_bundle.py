@@ -71,3 +71,21 @@ def test_install_rejects_wrong_checksum(spider_tree: tuple[Path, Path], tmp_path
     with pytest.raises(ValueError):
         install_bundle(out, dest, "0" * 64)
     assert not (dest / "spider").exists()
+
+
+def test_verify_extracted_accepts_complete_and_rejects_truncated(
+    spider_tree: tuple[Path, Path], tmp_path: Path
+) -> None:
+    from spider_sql.bundle import verify_extracted
+
+    out = tmp_path / "bundle.zip"
+    build_bundle(plan_bundle(*spider_tree), out)
+    root = tmp_path / "unpacked"
+    with zipfile.ZipFile(out) as archive:
+        archive.extractall(root)
+    spider, suite = verify_extracted(root)
+    assert (spider / "dev.json").is_file()
+    assert (suite / "database" / "d" / "dv1.sqlite").is_file()
+    (root / "testsuite" / "database" / "d" / "dv1.sqlite").write_bytes(b"")
+    with pytest.raises(ValueError):
+        verify_extracted(root)

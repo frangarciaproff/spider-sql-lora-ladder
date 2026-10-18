@@ -227,3 +227,20 @@ def train(
         "peak_vram_gb": torch.cuda.max_memory_allocated() / 1e9,
         "config": asdict(config),
     }
+
+
+def merge_train_meta(
+    existing: dict[str, object] | None,
+    static: dict[str, object],
+    session: dict[str, object],
+) -> dict[str, object]:
+    """Keep every training session: a resumed run appends instead of overwriting the stats of
+    the session that did the work."""
+    meta: dict[str, object] = dict(existing or {})
+    sessions = list(meta.get("sessions", []))  # type: ignore[call-overload]
+    sessions.append(session)
+    meta.update(static)
+    meta["sessions"] = sessions
+    meta["total_train_seconds"] = sum(float(s.get("seconds_this_session", 0.0)) for s in sessions)
+    meta["max_peak_vram_gb"] = max(float(s.get("peak_vram_gb", 0.0)) for s in sessions)
+    return meta
