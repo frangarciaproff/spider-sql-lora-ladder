@@ -1,0 +1,47 @@
+{
+  "selection_rule": "highest validation EX of the final checkpoint; ties to fewer epochs, then lower lr (SPEC 6)",
+  "winner": {
+    "lr": 0.0002,
+    "epochs": 2
+  },
+  "runs": [
+    {
+      "run": "qwen05b_c3_lr0.0001_ep2_seed0",
+      "validation_ex": 0.6325757575757576,
+      "n_correct": 334,
+      "n": 528,
+      "evidence": "console output pasted by Fran 2026-10-16; output files lost (written to an unmounted path)"
+    },
+    {
+      "run": "qwen05b_c3_lr0.0002_ep2_seed0",
+      "validation_ex": 0.6666666666666666,
+      "n_correct": 352,
+      "n": 528,
+      "reasons": {
+        "match": 352,
+        "mismatch": 101,
+        "pred_error": 75
+      },
+      "evidence": "results/tuning/qwen05b_c3_lr0.0002_ep2_seed0.console.txt (full training and scoring log); output files lost"
+    },
+    {
+      "run": "qwen05b_c3_lr0.0001_ep3_seed0",
+      "validation_ex": 0.6609848484848485,
+      "n_correct": 349,
+      "n": 528,
+      "evidence": "results/qwen05b_c3_lr0.0001_ep3_seed0/"
+    },
+    {
+      "run": "qwen05b_c3_lr0.0002_ep3_seed0",
+      "validation_ex": 0.6666666666666666,
+      "n_correct": 352,
+      "n": 528,
+      "reasons": {
+        "match": 352,
+        "mismatch": 99,
+        "pred_error": 77
+      },
+      "evidence": "results/qwen05b_c3_lr0.0002_ep3_seed0/ on Drive (download pending)"
+    }
+  ]
+}

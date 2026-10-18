@@ -1,0 +1,160 @@
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+Unsloth: xformers is installed but cannot load with torch 2.11.0+cu130 (it was built for 2.10.0+cu128), so PyTorch attention is used instead.
+To install a matching xformers, run `unsloth install-kernels xformers`, or `pip uninstall xformers` to hide this. UNSLOTH_ENABLE_LOGGING=1 shows the full error.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+==((====))==  Unsloth 2026.10.6: Fast Qwen2 patching. Transformers: 5.17.0.
+   \\   /|    Tesla T4. Num GPUs = 1. Max memory: 14.563 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.11.0+cu130. CUDA: 7.5. CUDA Toolkit: 13.0. Triton: 3.6.0
+\        /    Bfloat16 = FALSE. FA [Xformers = None. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+/usr/local/lib/python3.13/dist-packages/huggingface_hub/constants.py:302: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.
+  warnings.warn(
+Loading weights: 100% 290/290 [00:00<00:00, 358.33it/s]
+Unsloth 2026.10.6 patched 24 layers with 24 QKV layers, 24 O layers and 24 MLP layers.
+8024 training rows, 82 dropped (> 2048 tokens), median 456 max 1674 tokens, 1004 optimizer steps
+==((====))==  Unsloth - 2x faster free finetuning | Num GPUs used = 1
+   \\   /|    Num examples = 8,024 | Num Epochs = 2 | Total steps = 1,004
+O^O/ \_/ \    Batch size per device = 8 | Gradient accumulation steps = 2
+\        /    Data Parallel GPUs = 1 | Total batch size (8 x 2 x 1) = 16
+ "-____-"     Trainable parameters = 8,798,208 of 502,830,976 (1.75% trained)
+  0% 0/1004 [00:00<?, ?it/s]Unsloth: Will smartly offload gradients to save VRAM!
+Unsloth: Double buffering enabled (parallel H2D + compute) for backward pass.
+{'loss': '0.4506', 'grad_norm': '1.223', 'learning_rate': '5.806e-05', 'epoch': '0.01994'}
+{'loss': '0.4562', 'grad_norm': '1.428', 'learning_rate': '0.0001226', 'epoch': '0.03988'}
+{'loss': '0.3185', 'grad_norm': '0.7775', 'learning_rate': '0.0001871', 'epoch': '0.05982'}
+{'loss': '0.2703', 'grad_norm': '0.8805', 'learning_rate': '0.0002', 'epoch': '0.07976'}
+{'loss': '0.2136', 'grad_norm': '1.589', 'learning_rate': '0.0001998', 'epoch': '0.0997'}
+{'loss': '0.3226', 'grad_norm': '0.7897', 'learning_rate': '0.0001996', 'epoch': '0.1196'}
+{'loss': '0.2737', 'grad_norm': '1.229', 'learning_rate': '0.0001992', 'epoch': '0.1396'}
+{'loss': '0.2637', 'grad_norm': '0.9337', 'learning_rate': '0.0001988', 'epoch': '0.1595'}
+{'loss': '0.2026', 'grad_norm': '0.8528', 'learning_rate': '0.0001983', 'epoch': '0.1795'}
+{'loss': '0.1908', 'grad_norm': '0.8437', 'learning_rate': '0.0001976', 'epoch': '0.1994'}
+ 10% 100/1004 [05:13<13:42,  1.10it/s]Unsloth: Restored added_tokens_decoder metadata in /content/drive/MyDrive/fine-tuning/adapters/qwen05b_c3_lr0.0002_ep2_seed0/checkpoint-100/tokenizer_config.json.
+{'loss': '0.2507', 'grad_norm': '0.7127', 'learning_rate': '0.0001968', 'epoch': '0.2193'}
+{'loss': '0.2538', 'grad_norm': '1.013', 'learning_rate': '0.000196', 'epoch': '0.2393'}
+{'loss': '0.2086', 'grad_norm': '0.7211', 'learning_rate': '0.000195', 'epoch': '0.2592'}
+{'loss': '0.2017', 'grad_norm': '0.5679', 'learning_rate': '0.000194', 'epoch': '0.2792'}
+{'loss': '0.1473', 'grad_norm': '0.9604', 'learning_rate': '0.0001928', 'epoch': '0.2991'}
+{'loss': '0.2237', 'grad_norm': '0.8187', 'learning_rate': '0.0001916', 'epoch': '0.319'}
+{'loss': '0.1904', 'grad_norm': '0.4359', 'learning_rate': '0.0001902', 'epoch': '0.339'}
+{'loss': '0.2121', 'grad_norm': '0.5507', 'learning_rate': '0.0001888', 'epoch': '0.3589'}
+{'loss': '0.1692', 'grad_norm': '0.5891', 'learning_rate': '0.0001873', 'epoch': '0.3789'}
+{'loss': '0.161', 'grad_norm': '1.183', 'learning_rate': '0.0001856', 'epoch': '0.3988'}
+ 20% 200/1004 [10:57<11:34,  1.16it/s]Unsloth: Restored added_tokens_decoder metadata in /content/drive/MyDrive/fine-tuning/adapters/qwen05b_c3_lr0.0002_ep2_seed0/checkpoint-200/tokenizer_config.json.
+{'loss': '0.2374', 'grad_norm': '0.7544', 'learning_rate': '0.0001839', 'epoch': '0.4187'}
+{'loss': '0.1985', 'grad_norm': '1.126', 'learning_rate': '0.0001821', 'epoch': '0.4387'}
+{'loss': '0.1652', 'grad_norm': '0.5271', 'learning_rate': '0.0001803', 'epoch': '0.4586'}
+{'loss': '0.1688', 'grad_norm': '0.6159', 'learning_rate': '0.0001783', 'epoch': '0.4786'}
+{'loss': '0.1401', 'grad_norm': '1.058', 'learning_rate': '0.0001762', 'epoch': '0.4985'}
+{'loss': '0.2128', 'grad_norm': '1.151', 'learning_rate': '0.0001741', 'epoch': '0.5184'}
+{'loss': '0.1511', 'grad_norm': '0.675', 'learning_rate': '0.0001719', 'epoch': '0.5384'}
+{'loss': '0.1592', 'grad_norm': '0.6072', 'learning_rate': '0.0001696', 'epoch': '0.5583'}
+{'loss': '0.1362', 'grad_norm': '0.6295', 'learning_rate': '0.0001673', 'epoch': '0.5783'}
+{'loss': '0.1591', 'grad_norm': '0.6524', 'learning_rate': '0.0001648', 'epoch': '0.5982'}
+ 30% 300/1004 [16:47<10:52,  1.08it/s]Unsloth: Restored added_tokens_decoder metadata in /content/drive/MyDrive/fine-tuning/adapters/qwen05b_c3_lr0.0002_ep2_seed0/checkpoint-300/tokenizer_config.json.
+{'loss': '0.1645', 'grad_norm': '0.6367', 'learning_rate': '0.0001623', 'epoch': '0.6181'}
+{'loss': '0.1527', 'grad_norm': '0.7902', 'learning_rate': '0.0001598', 'epoch': '0.6381'}
+{'loss': '0.1524', 'grad_norm': '0.8245', 'learning_rate': '0.0001572', 'epoch': '0.658'}
+{'loss': '0.145', 'grad_norm': '0.7054', 'learning_rate': '0.0001545', 'epoch': '0.678'}
+{'loss': '0.1252', 'grad_norm': '0.6874', 'learning_rate': '0.0001518', 'epoch': '0.6979'}
+{'loss': '0.17', 'grad_norm': '0.7984', 'learning_rate': '0.000149', 'epoch': '0.7178'}
+{'loss': '0.1611', 'grad_norm': '0.8482', 'learning_rate': '0.0001461', 'epoch': '0.7378'}
+{'loss': '0.1507', 'grad_norm': '0.7903', 'learning_rate': '0.0001432', 'epoch': '0.7577'}
+{'loss': '0.13', 'grad_norm': '0.7753', 'learning_rate': '0.0001403', 'epoch': '0.7777'}
+{'loss': '0.128', 'grad_norm': '1.036', 'learning_rate': '0.0001373', 'epoch': '0.7976'}
+ 40% 400/1004 [22:36<09:11,  1.10it/s]Unsloth: Restored added_tokens_decoder metadata in /content/drive/MyDrive/fine-tuning/adapters/qwen05b_c3_lr0.0002_ep2_seed0/checkpoint-400/tokenizer_config.json.
+{'loss': '0.1674', 'grad_norm': '0.4382', 'learning_rate': '0.0001343', 'epoch': '0.8175'}
+{'loss': '0.14', 'grad_norm': '0.9433', 'learning_rate': '0.0001313', 'epoch': '0.8375'}
+{'loss': '0.1313', 'grad_norm': '0.7864', 'learning_rate': '0.0001282', 'epoch': '0.8574'}
+{'loss': '0.1324', 'grad_norm': '0.7627', 'learning_rate': '0.0001251', 'epoch': '0.8774'}
+{'loss': '0.1531', 'grad_norm': '0.6157', 'learning_rate': '0.0001219', 'epoch': '0.8973'}
+{'loss': '0.1366', 'grad_norm': '0.5475', 'learning_rate': '0.0001188', 'epoch': '0.9172'}
+{'loss': '0.1099', 'grad_norm': '0.9196', 'learning_rate': '0.0001156', 'epoch': '0.9372'}
+{'loss': '0.1385', 'grad_norm': '0.5521', 'learning_rate': '0.0001124', 'epoch': '0.9571'}
+{'loss': '0.1262', 'grad_norm': '0.5653', 'learning_rate': '0.0001092', 'epoch': '0.9771'}
+{'loss': '0.1108', 'grad_norm': '0.9734', 'learning_rate': '0.000106', 'epoch': '0.997'}
+ 50% 500/1004 [28:21<07:41,  1.09it/s]Unsloth: Restored added_tokens_decoder metadata in /content/drive/MyDrive/fine-tuning/adapters/qwen05b_c3_lr0.0002_ep2_seed0/checkpoint-500/tokenizer_config.json.
+{'loss': '0.1047', 'grad_norm': '0.5938', 'learning_rate': '0.0001027', 'epoch': '1.016'}
+{'loss': '0.1086', 'grad_norm': '0.4311', 'learning_rate': '9.952e-05', 'epoch': '1.036'}
+{'loss': '0.08158', 'grad_norm': '0.5631', 'learning_rate': '9.629e-05', 'epoch': '1.056'}
+{'loss': '0.09699', 'grad_norm': '0.7337', 'learning_rate': '9.306e-05', 'epoch': '1.076'}
+{'loss': '0.06444', 'grad_norm': '0.5106', 'learning_rate': '8.985e-05', 'epoch': '1.096'}
+{'loss': '0.1169', 'grad_norm': '0.6657', 'learning_rate': '8.664e-05', 'epoch': '1.116'}
+{'loss': '0.0905', 'grad_norm': '0.3554', 'learning_rate': '8.345e-05', 'epoch': '1.136'}
+{'loss': '0.08022', 'grad_norm': '0.4709', 'learning_rate': '8.027e-05', 'epoch': '1.156'}
+{'loss': '0.08794', 'grad_norm': '0.425', 'learning_rate': '7.712e-05', 'epoch': '1.175'}
+{'loss': '0.05939', 'grad_norm': '0.3087', 'learning_rate': '7.399e-05', 'epoch': '1.195'}
+ 60% 600/1004 [34:19<07:11,  1.07s/it]Unsloth: Restored added_tokens_decoder metadata in /content/drive/MyDrive/fine-tuning/adapters/qwen05b_c3_lr0.0002_ep2_seed0/checkpoint-600/tokenizer_config.json.
+{'loss': '0.09523', 'grad_norm': '0.5789', 'learning_rate': '7.088e-05', 'epoch': '1.215'}
+{'loss': '0.09751', 'grad_norm': '0.465', 'learning_rate': '6.781e-05', 'epoch': '1.235'}
+{'loss': '0.08088', 'grad_norm': '0.5332', 'learning_rate': '6.477e-05', 'epoch': '1.255'}
+{'loss': '0.06841', 'grad_norm': '0.5603', 'learning_rate': '6.177e-05', 'epoch': '1.275'}
+{'loss': '0.07174', 'grad_norm': '0.3534', 'learning_rate': '5.881e-05', 'epoch': '1.295'}
+{'loss': '0.09594', 'grad_norm': '0.7253', 'learning_rate': '5.589e-05', 'epoch': '1.315'}
+{'loss': '0.08203', 'grad_norm': '0.6479', 'learning_rate': '5.301e-05', 'epoch': '1.335'}
+{'loss': '0.07024', 'grad_norm': '0.6539', 'learning_rate': '5.019e-05', 'epoch': '1.355'}
+{'loss': '0.07271', 'grad_norm': '0.4816', 'learning_rate': '4.741e-05', 'epoch': '1.375'}
+{'loss': '0.05842', 'grad_norm': '0.644', 'learning_rate': '4.469e-05', 'epoch': '1.395'}
+ 70% 700/1004 [40:01<05:06,  1.01s/it]Unsloth: Restored added_tokens_decoder metadata in /content/drive/MyDrive/fine-tuning/adapters/qwen05b_c3_lr0.0002_ep2_seed0/checkpoint-700/tokenizer_config.json.
+{'loss': '0.08157', 'grad_norm': '0.4919', 'learning_rate': '4.203e-05', 'epoch': '1.415'}
+{'loss': '0.0743', 'grad_norm': '0.4853', 'learning_rate': '3.943e-05', 'epoch': '1.435'}
+{'loss': '0.07861', 'grad_norm': '0.4389', 'learning_rate': '3.69e-05', 'epoch': '1.455'}
+{'loss': '0.07614', 'grad_norm': '0.4454', 'learning_rate': '3.443e-05', 'epoch': '1.475'}
+{'loss': '0.06515', 'grad_norm': '0.5231', 'learning_rate': '3.202e-05', 'epoch': '1.495'}
+{'loss': '0.08593', 'grad_norm': '0.4226', 'learning_rate': '2.969e-05', 'epoch': '1.514'}
+{'loss': '0.06616', 'grad_norm': '0.4217', 'learning_rate': '2.743e-05', 'epoch': '1.534'}
+{'loss': '0.05754', 'grad_norm': '0.6457', 'learning_rate': '2.525e-05', 'epoch': '1.554'}
+{'loss': '0.08179', 'grad_norm': '0.7012', 'learning_rate': '2.314e-05', 'epoch': '1.574'}
+{'loss': '0.08432', 'grad_norm': '0.6888', 'learning_rate': '2.112e-05', 'epoch': '1.594'}
+ 80% 800/1004 [45:45<03:32,  1.04s/it]Unsloth: Restored added_tokens_decoder metadata in /content/drive/MyDrive/fine-tuning/adapters/qwen05b_c3_lr0.0002_ep2_seed0/checkpoint-800/tokenizer_config.json.
+{'loss': '0.07787', 'grad_norm': '0.6029', 'learning_rate': '1.917e-05', 'epoch': '1.614'}
+{'loss': '0.06646', 'grad_norm': '0.4062', 'learning_rate': '1.732e-05', 'epoch': '1.634'}
+{'loss': '0.06371', 'grad_norm': '0.6478', 'learning_rate': '1.554e-05', 'epoch': '1.654'}
+{'loss': '0.06539', 'grad_norm': '0.6572', 'learning_rate': '1.386e-05', 'epoch': '1.674'}
+{'loss': '0.05474', 'grad_norm': '0.5977', 'learning_rate': '1.226e-05', 'epoch': '1.694'}
+{'loss': '0.08353', 'grad_norm': '0.5298', 'learning_rate': '1.076e-05', 'epoch': '1.714'}
+{'loss': '0.0684', 'grad_norm': '0.3526', 'learning_rate': '9.35e-06', 'epoch': '1.734'}
+{'loss': '0.05249', 'grad_norm': '0.4597', 'learning_rate': '8.035e-06', 'epoch': '1.754'}
+{'loss': '0.06275', 'grad_norm': '0.6331', 'learning_rate': '6.815e-06', 'epoch': '1.774'}
+{'loss': '0.05196', 'grad_norm': '0.5719', 'learning_rate': '5.692e-06', 'epoch': '1.794'}
+ 90% 900/1004 [51:31<01:46,  1.02s/it]Unsloth: Restored added_tokens_decoder metadata in /content/drive/MyDrive/fine-tuning/adapters/qwen05b_c3_lr0.0002_ep2_seed0/checkpoint-900/tokenizer_config.json.
+{'loss': '0.07272', 'grad_norm': '0.3106', 'learning_rate': '4.667e-06', 'epoch': '1.814'}
+{'loss': '0.06531', 'grad_norm': '0.5199', 'learning_rate': '3.742e-06', 'epoch': '1.833'}
+{'loss': '0.05722', 'grad_norm': '0.4546', 'learning_rate': '2.918e-06', 'epoch': '1.853'}
+{'loss': '0.06447', 'grad_norm': '0.5488', 'learning_rate': '2.194e-06', 'epoch': '1.873'}
+{'loss': '0.0524', 'grad_norm': '0.3584', 'learning_rate': '1.573e-06', 'epoch': '1.893'}
+{'loss': '0.07009', 'grad_norm': '0.3631', 'learning_rate': '1.054e-06', 'epoch': '1.913'}
+{'loss': '0.06495', 'grad_norm': '0.773', 'learning_rate': '6.378e-07', 'epoch': '1.933'}
+{'loss': '0.05993', 'grad_norm': '0.3049', 'learning_rate': '3.256e-07', 'epoch': '1.953'}
+{'loss': '0.05633', 'grad_norm': '0.8807', 'learning_rate': '1.173e-07', 'epoch': '1.973'}
+{'loss': '0.04574', 'grad_norm': '0.4533', 'learning_rate': '1.303e-08', 'epoch': '1.993'}
+100% 1000/1004 [57:09<00:04,  1.01s/it]Unsloth: Restored added_tokens_decoder metadata in /content/drive/MyDrive/fine-tuning/adapters/qwen05b_c3_lr0.0002_ep2_seed0/checkpoint-1000/tokenizer_config.json.
+100% 1004/1004 [57:17<00:00,  1.77s/it]Unsloth: Restored added_tokens_decoder metadata in /content/drive/MyDrive/fine-tuning/adapters/qwen05b_c3_lr0.0002_ep2_seed0/checkpoint-1004/tokenizer_config.json.
+{'train_runtime': '3439', 'train_samples_per_second': '4.667', 'train_steps_per_second': '0.292', 'train_loss': '0.132', 'epoch': '2'}
+100% 1004/1004 [57:18<00:00,  3.42s/it]
+Unsloth: Restored added_tokens_decoder metadata in /content/drive/MyDrive/fine-tuning/adapters/qwen05b_c3_lr0.0002_ep2_seed0/adapter/tokenizer_config.json.
+done: step 1004, loss 0.1320, 3439s, peak VRAM 6.6 GB
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights: 100% 290/290 [00:00<00:00, 372.15it/s]
+0 already done, 528 to generate
+[transformers] The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+32/528
+64/528
+96/528
+128/528
+160/528
+192/528
+224/528
+256/528
+288/528
+320/528
+352/528
+384/528
+416/528
+448/528
+480/528
+512/528
+528/528
+done: 528 prompts in 108s, 157 new tokens/s, max prompt 1443 tokens
+ex         0.6667  (352/528)  {'match': 352, 'mismatch': 101, 'pred_error': 75}
