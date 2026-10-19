@@ -1,0 +1,32 @@
+{
+  "qwen05b_c3_lr0.0002_ep2_seed0": {
+    "adapter_model.safetensors_sha256": "53b63e919b78ec46ad242c8b74d3d43b05df0b5cb1c07443115b6b6c1143a35b",
+    "bytes": 35237104,
+    "source": "v1_qwen05b/outputs/adapters/qwen05b_c3_lr0.0002_ep2_seed0/adapter"
+  },
+  "qwen05b_c3_lr0.0002_ep2_seed1": {
+    "adapter_model.safetensors_sha256": "8e6546935fab7c8fa16d1d8404103c1f66ee9c633a1d0c4dec9e68550a2ec32a",
+    "bytes": 35237104,
+    "source": "v1_qwen05b/outputs/adapters/qwen05b_c3_lr0.0002_ep2_seed1/adapter"
+  },
+  "qwen05b_c3_lr0.0002_ep2_seed2": {
+    "adapter_model.safetensors_sha256": "a3ed88ca4b0d1507fe3824bf1af85f6dda3436ce806e483c13fa27f227f661ad",
+    "bytes": 35237104,
+    "source": "v1_qwen05b/outputs/adapters/qwen05b_c3_lr0.0002_ep2_seed2/adapter"
+  },
+  "qwen15b_c3_lr0.0002_ep2_seed0": {
+    "adapter_model.safetensors_sha256": "d763d64b707706ea76e32e2100c9f33df128f116775624dcadd1576c83f40a35",
+    "bytes": 73911112,
+    "source": "v2_qwen15b_seed0/outputs/adapters/qwen15b_c3_lr0.0002_ep2_seed0/adapter"
+  },
+  "qwen15b_c3_lr0.0002_ep2_seed1": {
+    "adapter_model.safetensors_sha256": "4ae535830b874a9b7a413a770ab8817bf83ee50fd5f9e66542f0d7fa0c0f2f27",
+    "bytes": 73911112,
+    "source": "v3_qwen15b_seed1_2/outputs/adapters/qwen15b_c3_lr0.0002_ep2_seed1/adapter"
+  },
+  "qwen15b_c3_lr0.0002_ep2_seed2": {
+    "adapter_model.safetensors_sha256": "a2f354a9c53a7172417605000b5de2daa3a8699fec638539c6e836b2e2813b2d",
+    "bytes": 73911112,
+    "source": "v3_qwen15b_seed1_2/outputs/adapters/qwen15b_c3_lr0.0002_ep2_seed2/adapter"
+  }
+}

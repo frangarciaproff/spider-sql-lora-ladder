@@ -12,6 +12,7 @@ from collections.abc import Sequence
 from datetime import UTC, datetime
 from pathlib import Path
 
+from spider_sql.bundle import sha256_file
 from spider_sql.data import DataPaths, Example, sqlite_path
 from spider_sql.generation import (
     PromptRecord,
@@ -28,6 +29,14 @@ from spider_sql.schema import schema_ddl
 from spider_sql.split import load_all_splits
 
 CONDITIONS = ("zero_shot", "three_shot", "adapter")
+
+
+def adapter_sha256(adapter: str | None) -> str | None:
+    """Fingerprint of the adapter weights, so a test run can be tied to the evaluated adapter."""
+    if adapter is None:
+        return None
+    weights = Path(adapter) / "adapter_model.safetensors"
+    return sha256_file(weights) if weights.is_file() else "no adapter_model.safetensors"
 
 
 def schema_for(paths: DataPaths, example: Example) -> str:
@@ -97,6 +106,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         "shot_keys": shot_keys,
         "started_utc": datetime.now(UTC).isoformat(),
         "environment": environment_info(model, args.model, args.revision),
+        "adapter_sha256": adapter_sha256(args.adapter),
     }
     meta_path.write_text(json.dumps(meta, indent=2, default=str) + "\n", encoding="utf-8")
 

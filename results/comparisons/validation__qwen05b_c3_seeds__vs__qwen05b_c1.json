@@ -1,0 +1,43 @@
+{
+  "split": "validation",
+  "a": [
+    "qwen05b_c1_zero_shot"
+  ],
+  "b": [
+    "qwen05b_c3_lr0.0002_ep2_seed0",
+    "qwen05b_c3_lr0.0002_ep2_seed1",
+    "qwen05b_c3_lr0.0002_ep2_seed2"
+  ],
+  "metrics": {
+    "ex": {
+      "a_accuracy": 0.5208333333333334,
+      "b_accuracy": 0.6470959595959597,
+      "difference": {
+        "point": 0.12626262626262624,
+        "lo": 0.08898721730580136,
+        "hi": 0.1834862385321101,
+        "n": 528.0,
+        "n_clusters": 15.0,
+        "n_boot": 10000.0,
+        "level": 0.95
+      },
+      "mcnemar_per_b_run": [
+        {
+          "a_only": 25.0,
+          "b_only": 100.0,
+          "p_value": 8.08544054685349e-12
+        },
+        {
+          "a_only": 29.0,
+          "b_only": 92.0,
+          "p_value": 7.977121970595981e-09
+        },
+        {
+          "a_only": 31.0,
+          "b_only": 93.0,
+          "p_value": 2.2005721799037128e-08
+        }
+      ]
+    }
+  }
+}
