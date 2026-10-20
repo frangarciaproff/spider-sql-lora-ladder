@@ -59,7 +59,7 @@ files = ["src", "scripts"]
 exclude = ["data/"]
 
 [[tool.mypy.overrides]]
-module = ["nltk.*", "sqlparse.*", "torch.*", "transformers.*", "peft.*", "huggingface_hub.*", "unsloth.*"]
+module = ["matplotlib.*", "nltk.*", "sqlparse.*", "torch.*", "transformers.*", "peft.*", "huggingface_hub.*", "unsloth.*"]
 ignore_missing_imports = true
 
 [[tool.mypy.overrides]]

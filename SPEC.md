@@ -188,4 +188,11 @@ Run only after Spider test results are final (done 2026-10-19).
 | H1 | 0.5B | 48.30 | 63.47 +/- 1.41 | +15.17 [+11.89, +18.76] | 5 pp | SUCCESS |
 | H2 | 1.5B | 66.42 | 75.42 +/- 0.37 | +9.00 [+7.33, +10.69] | 3 pp | SUCCESS |
 
-Source: results/hypotheses.json (scripts/evaluate_hypotheses.py). Secondary results in docs/DECISIONS.md (2026-10-19). Section 8 (BIRD) not yet run.
+Source: results/hypotheses.json (scripts/evaluate_hypotheses.py). Secondary results in docs/DECISIONS.md (2026-10-19).
+
+| BIRD (SPEC 8) | Model | C1 EX | C3 EX (3 seeds) | C3 minus C1, 95% CI (db-cluster) | O1 (>= 2 pp, lower > 0) | O2 (lower >= -2 pp) |
+|---|---|---|---|---|---|---|
+| | 0.5B | 13.43 | 18.90 | +5.48 [+1.47, +9.77] | SUCCESS | SUCCESS |
+| | 1.5B | 26.21 | 28.88 | +2.67 [-1.25, +6.67] | NOT MET (per-question interval would pass: not robust) | SUCCESS |
+
+Source: results/bird_hypotheses.json (scripts/evaluate_bird.py), 2026-10-20.

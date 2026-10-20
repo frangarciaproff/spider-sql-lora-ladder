@@ -1,0 +1,167 @@
+{
+  "rules": "SPEC 8",
+  "O1": "gain >= 2 pp and lower bound > 0",
+  "O2": "lower bound >= -2 pp",
+  "gold_failed": [
+    "bird_dev:518",
+    "bird_dev:701"
+  ],
+  "qwen05b": {
+    "c3_runs": [
+      "qwen05b_c3_lr0.0002_ep2_seed0",
+      "qwen05b_c3_lr0.0002_ep2_seed1",
+      "qwen05b_c3_lr0.0002_ep2_seed2"
+    ],
+    "c1_ex": 0.13428943937418514,
+    "c3_ex_per_seed": [
+      0.18383311603650587,
+      0.20078226857887874,
+      0.18252933507170796
+    ],
+    "c3_minus_c1": {
+      "point": 0.054758800521512385,
+      "lo": 0.014705882352941175,
+      "hi": 0.09770114942528735,
+      "n": 1534.0,
+      "n_clusters": 11.0,
+      "n_boot": 10000.0,
+      "level": 0.95
+    },
+    "O1": "SUCCESS",
+    "O2": "SUCCESS",
+    "sensitivity_per_question": {
+      "c3_minus_c1": {
+        "point": 0.054758800521512406,
+        "lo": 0.03650586701434161,
+        "hi": 0.07322903085614949,
+        "n": 1534.0,
+        "n_clusters": 1534.0,
+        "n_boot": 10000.0,
+        "level": 0.95
+      },
+      "O1": "SUCCESS",
+      "O2": "SUCCESS"
+    },
+    "mcnemar_per_seed": [
+      {
+        "a_only": 92.0,
+        "b_only": 168.0,
+        "p_value": 2.82664226262243e-06
+      },
+      {
+        "a_only": 91.0,
+        "b_only": 193.0,
+        "p_value": 1.3812047834908922e-09
+      },
+      {
+        "a_only": 86.0,
+        "b_only": 160.0,
+        "p_value": 2.759238120651498e-06
+      }
+    ],
+    "evidence_effect_with_minus_without": {
+      "qwen05b_c1_zero_shot": {
+        "point": 0.05541069100391134,
+        "lo": 0.03333333333333333,
+        "hi": 0.07748830995323981,
+        "n": 1534.0,
+        "n_clusters": 11.0,
+        "n_boot": 10000.0,
+        "level": 0.95
+      },
+      "qwen05b_c3_lr0.0002_ep2_seed0": {
+        "point": 0.0788787483702738,
+        "lo": 0.05149253731343283,
+        "hi": 0.10625814863102999,
+        "n": 1534.0,
+        "n_clusters": 11.0,
+        "n_boot": 10000.0,
+        "level": 0.95
+      }
+    },
+    "contamination_probe": {
+      "c1_spider_dev_ex": 0.47775628626692457,
+      "c1_bird_dev_ex": 0.13428943937418514,
+      "note": "different benchmarks and metrics; a gap is a limitation, not corrected"
+    }
+  },
+  "qwen15b": {
+    "c3_runs": [
+      "qwen15b_c3_lr0.0002_ep2_seed0",
+      "qwen15b_c3_lr0.0002_ep2_seed1",
+      "qwen15b_c3_lr0.0002_ep2_seed2"
+    ],
+    "c1_ex": 0.2620599739243807,
+    "c3_ex_per_seed": [
+      0.29335071707953064,
+      0.29139504563233376,
+      0.2816166883963494
+    ],
+    "c3_minus_c1": {
+      "point": 0.026727509778357233,
+      "lo": -0.012548482774355467,
+      "hi": 0.06666666666666665,
+      "n": 1534.0,
+      "n_clusters": 11.0,
+      "n_boot": 10000.0,
+      "level": 0.95
+    },
+    "O1": "NOT MET",
+    "O2": "SUCCESS",
+    "sensitivity_per_question": {
+      "c3_minus_c1": {
+        "point": 0.02672750977835725,
+        "lo": 0.0060843111690569275,
+        "hi": 0.04758800521512386,
+        "n": 1534.0,
+        "n_clusters": 1534.0,
+        "n_boot": 10000.0,
+        "level": 0.95
+      },
+      "O1": "SUCCESS",
+      "O2": "SUCCESS"
+    },
+    "mcnemar_per_seed": [
+      {
+        "a_only": 132.0,
+        "b_only": 180.0,
+        "p_value": 0.00769410760415886
+      },
+      {
+        "a_only": 131.0,
+        "b_only": 176.0,
+        "p_value": 0.011908132438174941
+      },
+      {
+        "a_only": 154.0,
+        "b_only": 184.0,
+        "p_value": 0.11457226215139195
+      }
+    ],
+    "evidence_effect_with_minus_without": {
+      "qwen15b_c1_zero_shot": {
+        "point": 0.07757496740547588,
+        "lo": 0.043588123815540114,
+        "hi": 0.11168639053254438,
+        "n": 1534.0,
+        "n_clusters": 11.0,
+        "n_boot": 10000.0,
+        "level": 0.95
+      },
+      "qwen15b_c3_lr0.0002_ep2_seed0": {
+        "point": 0.10821382007822686,
+        "lo": 0.08236895847515316,
+        "hi": 0.1337448559670782,
+        "n": 1534.0,
+        "n_clusters": 11.0,
+        "n_boot": 10000.0,
+        "level": 0.95
+      }
+    },
+    "contamination_probe": {
+      "c1_spider_dev_ex": 0.6528046421663443,
+      "c1_bird_dev_ex": 0.2620599739243807,
+      "note": "different benchmarks and metrics; a gap is a limitation, not corrected"
+    }
+  }
+}

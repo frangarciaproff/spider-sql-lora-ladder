@@ -1,0 +1,51 @@
+{
+  "variant": "bird_dev_noev",
+  "partial": false,
+  "ex": {
+    "n": 1534,
+    "n_correct": 284,
+    "accuracy": 0.18513689700130379,
+    "reasons": {
+      "pred_error": 398,
+      "mismatch": 846,
+      "match": 284,
+      "pred_timeout": 4,
+      "gold_error": 2
+    }
+  },
+  "by_difficulty": {
+    "challenging": {
+      "n": 145,
+      "n_correct": 17,
+      "accuracy": 0.11724137931034483,
+      "reasons": {
+        "pred_error": 47,
+        "mismatch": 80,
+        "match": 17,
+        "gold_error": 1
+      }
+    },
+    "moderate": {
+      "n": 464,
+      "n_correct": 33,
+      "accuracy": 0.07112068965517242,
+      "reasons": {
+        "pred_error": 145,
+        "mismatch": 285,
+        "match": 33,
+        "gold_error": 1
+      }
+    },
+    "simple": {
+      "n": 925,
+      "n_correct": 234,
+      "accuracy": 0.252972972972973,
+      "reasons": {
+        "pred_error": 206,
+        "mismatch": 481,
+        "match": 234,
+        "pred_timeout": 4
+      }
+    }
+  }
+}
