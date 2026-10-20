@@ -71,8 +71,12 @@ def execute(
     query: str,
     timeout_s: float = DEFAULT_TIMEOUT_S,
     max_rows: int = MAX_ROWS,
+    lenient_text: bool = True,
 ) -> QueryOutcome:
-    """Run one query read-only. Errors, timeouts and oversized results are returned, not raised."""
+    """Run one query read-only. Errors, timeouts and oversized results are returned, not raised.
+
+    lenient_text drops undecodable bytes (as the Spider test-suite script does); False keeps
+    sqlite3's default, where invalid UTF-8 is an error (as the BIRD script does)."""
     deadline = time.monotonic() + timeout_s
     uri = f"{sqlite_path.resolve().as_uri()}?mode=ro"
     try:
@@ -80,7 +84,8 @@ def execute(
     except sqlite3.Error as exc:
         return QueryOutcome(ok=False, error=f"connect: {exc}")
     try:
-        connection.text_factory = lambda raw: raw.decode(errors="ignore")
+        if lenient_text:
+            connection.text_factory = lambda raw: raw.decode(errors="ignore")
         connection.set_progress_handler(lambda: int(time.monotonic() > deadline), PROGRESS_STEPS)
         cursor = connection.cursor()
         cursor.execute(replace_cur_year(query))
