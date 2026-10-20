@@ -1,0 +1,24 @@
+{
+  "ex": {
+    "accuracy": 0.632044713553796,
+    "n": 2147,
+    "n_correct": 1357,
+    "reasons": {
+      "match": 1357,
+      "mismatch": 395,
+      "pred_error": 394,
+      "pred_timeout": 1
+    }
+  },
+  "ex_strict": {
+    "accuracy": 0.6287843502561714,
+    "n": 2147,
+    "n_correct": 1350,
+    "reasons": {
+      "match": 1350,
+      "mismatch": 402,
+      "pred_error": 394,
+      "pred_timeout": 1
+    }
+  }
+}

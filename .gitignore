@@ -15,3 +15,4 @@ COMMANDS_CHEATSHEET.md
 COMMANDS_CHEATSHEET.md
 personal_comments.md
 dist/
+*.safetensors

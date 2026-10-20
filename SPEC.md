@@ -1,6 +1,6 @@
 # SPEC: spider-sql-lora-ladder
 
-Status: AGREED v1.0 (2026-10-15, Fran: "Let's start"). Metrics and thresholds in sections 7 are frozen; no result existed at agreement. BIRD hypotheses O1/O2 (section 8) remain PROPOSED until review point 4.
+Status: AGREED v1.0 (2026-10-15, Fran: "Let's start"). Metrics and thresholds in sections 7 are frozen; no result existed at agreement. BIRD hypotheses O1/O2 (section 8) frozen at review point 4 (2026-10-20), before any BIRD run.
 
 ## 1. Problem
 
@@ -122,23 +122,28 @@ Unit tests on synthetic data run in CI. Real-data checks run with `scripts/prepa
 - Secondary comparisons (reported, no threshold): C3 vs C2, C2 vs C1, S vs M.
 - Outcomes are recorded whether met or not. Null and negative results go to docs/DECISIONS.md.
 
-## 8. OOD evaluation: BIRD (separate, pre-registered)
+## 8. OOD evaluation: BIRD (separate, pre-registered; FROZEN 2026-10-20, review point 4)
 
-Run only after Spider test results are final.
+Run only after Spider test results are final (done 2026-10-19).
 
-- Data: BIRD dev (1,534 questions), official release. License and redistribution terms to be verified before use (OPEN).
-- Models: C1 and C3 (Spider-trained, all seeds) for S and M. No training on BIRD in this section.
-- Prompt: same template plus the BIRD `evidence` field appended to the question, because BIRD questions are not answerable without it. Variant without evidence reported as secondary.
-- Metric: BIRD execution accuracy with the official evaluation script. Same statistics as 7.2.
-- Hypotheses (PROPOSED, need Fran's confirmation before freezing):
-  - O1 (transfer): C3 gain over C1 on BIRD dev >= 2 pp with lower CI bound > 0.
-  - O2 (no harm): lower CI bound of the C3 minus C1 difference >= -2 pp.
+- Data: BIRD dev (1,534 questions, 11 databases), official release from https://bird-bench.github.io/, license CC BY-SA 4.0 (since 2024-04-27). File hashes in results/bird_manifest.json. Data is not redistributed. Database names checked for overlap with Spider.
+- Models: C1 and C3 (Spider-trained, all seeds) for S and M. No training on BIRD in this section. No C2.
+- Prompt: same system prompt and template; the BIRD `evidence` is appended to the question as a new line `Evidence: <text>` (omitted when empty). Variant without evidence (secondary) for C1 and C3 seed 0 per size only.
+- Decoding: as section 5, except max_new_tokens 512 (BIRD gold queries are longer). Same for every condition.
+- Metric: BIRD execution accuracy with the official rule (evaluation.py, AlibabaResearch/DAMO-ConvAI): correct when set(predicted rows) == set(gold rows); row order and duplicates ignored, column order not; any error scores 0, including a gold error; 30 s timeout per query; strict UTF-8 decoding; read-only. Re-implemented in src/spider_sql/bird.py. Not comparable with the Spider EX numbers, which use bag semantics and column permutation.
+- Statistics: as 7.2 (seed average, db-cluster bootstrap 10,000, exact McNemar per seed). With 11 clusters the interval is likely too narrow; a per-question bootstrap is reported as a sensitivity check and does not decide outcomes. If the two disagree, the outcome is reported as not robust.
+- Hypotheses, per size (FROZEN):
+  - O1 (transfer): C3 minus C1 on BIRD dev EX >= 2 pp with lower 95% CI bound > 0.
+  - O2 (no harm): lower 95% CI bound of C3 minus C1 >= -2 pp.
+  - Fewer than 3 C3 seeds: exploratory.
+  - Prediction recorded before running (Fran): both pass.
 - Contamination probe: report C1 accuracy on Spider dev vs BIRD dev. A large gap is evidence of exposure to Spider-style data, noted as a limitation, not corrected.
+- Secondary, no thresholds: evidence effect (with minus without), accuracy by BIRD difficulty.
 
 ## 9. Error analysis
 
 - Performed on Spider dev failures only (never on test).
-- Sample 100 failures of C1 and 100 of C3 (size M, seed 0), seeded random sample, labeled manually into: wrong join, wrong aggregation, hallucinated column/table, syntax error, wrong filter/value, other. Taxonomy fixed before labeling.
+- Sample 100 failures of C1 and 100 of C3 (size M, seed 0), seeded random sample, labeled manually into: wrong join, wrong aggregation, hallucinated column/table, syntax error, wrong filter/value, other. Taxonomy fixed before labeling. Protocol details (failure definition, label priority, blinding): docs/DECISIONS.md, 2026-10-19.
 
 ## 10. Non-goals
 
@@ -171,7 +176,16 @@ Run only after Spider test results are final.
 - [x] Decide metric/split for confirmatory evaluation (A: EX on test)
 - [x] Comparison code runs on Python 3.13.15 and agrees with upstream (370 comparisons)
 - [x] keep_distinct secondary metric approved (7.1)
-- [ ] BIRD license and download verified
-- [ ] BIRD hypotheses O1/O2 confirmed by Fran
+- [x] BIRD license verified (CC BY-SA 4.0); download hashes in results/bird_manifest.json
+- [x] BIRD hypotheses O1/O2 confirmed by Fran (2026-10-20)
 - [x] Colab Python version matches 3.13.15
 - [x] SPEC agreed by Fran (date: 2026-10-15)
+
+## 15. Outcomes (recorded 2026-10-19, after the single test run)
+
+| Hypothesis | Model | C1 test EX | C3 test EX (3 seeds) | C3 minus C1, 95% CI | Threshold | Outcome |
+|---|---|---|---|---|---|---|
+| H1 | 0.5B | 48.30 | 63.47 +/- 1.41 | +15.17 [+11.89, +18.76] | 5 pp | SUCCESS |
+| H2 | 1.5B | 66.42 | 75.42 +/- 0.37 | +9.00 [+7.33, +10.69] | 3 pp | SUCCESS |
+
+Source: results/hypotheses.json (scripts/evaluate_hypotheses.py). Secondary results in docs/DECISIONS.md (2026-10-19). Section 8 (BIRD) not yet run.
