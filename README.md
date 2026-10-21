@@ -6,7 +6,6 @@ You ask a database a question in plain English, for example *"How many singers a
 
 This project asks three questions. Does a little extra training (fine-tuning) make small models better at it? By how much? And does the improvement carry over to databases the model has never seen?
 
-![Share of questions answered correctly, before and after fine-tuning](docs/figures/results.png)
 
 ## In short
 
@@ -68,4 +67,4 @@ Data: Spider (Yu et al. 2018) and BIRD (Li et al. 2023), both CC BY-SA 4.0, not 
 
 Built with AI assistance (Claude) for code and documentation. The experimental design, decisions, runs and manual labels are the author's.
 
-Author: Francisco García Soriano
+Author: Francisco J. García Soriano
