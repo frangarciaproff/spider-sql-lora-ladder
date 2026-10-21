@@ -1,0 +1,190 @@
+{
+  "failure": "EX = 0 on the example's own database",
+  "seed": 1234,
+  "labels": [
+    "syntax_error",
+    "hallucinated_schema",
+    "wrong_join",
+    "wrong_aggregation",
+    "wrong_filter_value",
+    "other"
+  ],
+  "note_tags": {
+    "qwen15b_c1_zero_shot": {
+      "gold?": 7,
+      "value not in schema": 5
+    },
+    "qwen15b_c3_lr0.0002_ep2_seed0": {
+      "gold?": 14,
+      "value not in schema": 5
+    }
+  },
+  "qwen15b_c1_zero_shot": {
+    "n_labeled": 100,
+    "failure_rate": 0.3471953578336557,
+    "labels": {
+      "syntax_error": {
+        "count": 4,
+        "share_of_failures": 0.04,
+        "ci95": [
+          0.01566330388275538,
+          0.09837071498472119
+        ],
+        "share_of_dev": 0.013887814313346227,
+        "share_of_dev_ci95": [
+          0.005438226396430542,
+          0.03415385558947283
+        ]
+      },
+      "hallucinated_schema": {
+        "count": 47,
+        "share_of_failures": 0.47,
+        "ci95": [
+          0.37510817888094034,
+          0.5671114310451995
+        ],
+        "share_of_dev": 0.16318181818181815,
+        "share_of_dev_ci95": [
+          0.130235818392899,
+          0.19689845623329458
+        ]
+      },
+      "wrong_join": {
+        "count": 23,
+        "share_of_failures": 0.23,
+        "ci95": [
+          0.15843265832598313,
+          0.3215438310092749
+        ],
+        "share_of_dev": 0.07985493230174082,
+        "share_of_dev_ci95": [
+          0.055007083500027025,
+          0.11163852546646971
+        ]
+      },
+      "wrong_aggregation": {
+        "count": 8,
+        "share_of_failures": 0.08,
+        "ci95": [
+          0.04109346127318457,
+          0.1499810776927723
+        ],
+        "share_of_dev": 0.027775628626692455,
+        "share_of_dev_ci95": [
+          0.01426745899136679,
+          0.052072733937819395
+        ]
+      },
+      "wrong_filter_value": {
+        "count": 11,
+        "share_of_failures": 0.11,
+        "ci95": [
+          0.06254196329419368,
+          0.18631296574562342
+        ],
+        "share_of_dev": 0.03819148936170213,
+        "share_of_dev_ci95": [
+          0.021714279325546933,
+          0.06468699681110136
+        ]
+      },
+      "other": {
+        "count": 7,
+        "share_of_failures": 0.07,
+        "ci95": [
+          0.0343192608798127,
+          0.13749514806152413
+        ],
+        "share_of_dev": 0.0243036750483559,
+        "share_of_dev_ci95": [
+          0.011915488061753151,
+          0.04773767713161234
+        ]
+      }
+    }
+  },
+  "qwen15b_c3_lr0.0002_ep2_seed0": {
+    "n_labeled": 100,
+    "failure_rate": 0.25338491295938104,
+    "labels": {
+      "syntax_error": {
+        "count": 5,
+        "share_of_failures": 0.05,
+        "ci95": [
+          0.021543679017992173,
+          0.1117504698741045
+        ],
+        "share_of_dev": 0.012669245647969053,
+        "share_of_dev_ci95": [
+          0.00545884323279879,
+          0.0283158830822199
+        ]
+      },
+      "hallucinated_schema": {
+        "count": 23,
+        "share_of_failures": 0.23,
+        "ci95": [
+          0.15843265832598313,
+          0.3215438310092749
+        ],
+        "share_of_dev": 0.05827852998065764,
+        "share_of_dev_ci95": [
+          0.04014444533985259,
+          0.08147435563291106
+        ]
+      },
+      "wrong_join": {
+        "count": 28,
+        "share_of_failures": 0.28,
+        "ci95": [
+          0.2013968515708077,
+          0.3748802878875508
+        ],
+        "share_of_dev": 0.0709477756286267,
+        "share_of_dev_ci95": [
+          0.05103092370556249,
+          0.09498900911657476
+        ]
+      },
+      "wrong_aggregation": {
+        "count": 11,
+        "share_of_failures": 0.11,
+        "ci95": [
+          0.06254196329419368,
+          0.18631296574562342
+        ],
+        "share_of_dev": 0.027872340425531914,
+        "share_of_dev_ci95": [
+          0.015847189925608067,
+          0.04720889460865893
+        ]
+      },
+      "wrong_filter_value": {
+        "count": 11,
+        "share_of_failures": 0.11,
+        "ci95": [
+          0.06254196329419368,
+          0.18631296574562342
+        ],
+        "share_of_dev": 0.027872340425531914,
+        "share_of_dev_ci95": [
+          0.015847189925608067,
+          0.04720889460865893
+        ]
+      },
+      "other": {
+        "count": 22,
+        "share_of_failures": 0.22,
+        "ci95": [
+          0.15001282338296418,
+          0.3107035359276738
+        ],
+        "share_of_dev": 0.05574468085106383,
+        "share_of_dev_ci95": [
+          0.038010986195683376,
+          0.07872758840720555
+        ]
+      }
+    }
+  }
+}
